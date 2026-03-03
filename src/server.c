@@ -525,6 +525,22 @@ int main(int argc, char **argv) {
   }
   server->prefs_json = strdup(json_object_to_json_string(client_prefs));
   json_object_put(client_prefs);
+  const char *base_path_env = getenv("TTYD_BASE_PATH");
+  if (base_path_env != NULL) {
+    char path[128];
+    strncpy(path, base_path_env, sizeof(path) - 1);
+    path[sizeof(path) - 1] = '\0';
+    unsetenv("TTYD_BASE_PATH");
+    size_t len = strlen(path);
+    while (len && path[len - 1] == '/') path[--len] = 0;  // trim trailing /
+    if (len) {
+#define sc(f)                                  \
+  strncpy(path + len, endpoints.f, 128 - len); \
+  endpoints.f = strdup(path);
+      sc(ws) sc(index) sc(token) sc(parent)
+#undef sc
+    }
+  }
 
   if (server->command == NULL || strlen(server->command) == 0) {
     fprintf(stderr, "ttyd: missing start command\n");

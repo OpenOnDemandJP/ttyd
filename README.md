@@ -8,6 +8,7 @@
 # ttyd - Share your terminal over the web
 
 ttyd is a simple command-line tool for sharing terminal over the web.
+This fork adds `TTYD_BASE_PATH` environment variable support for base path configuration (it takes precedence over `-b`/`--base-path`).
 
 ![screenshot](https://github.com/tsl0922/ttyd/raw/main/screenshot.gif)
 
@@ -84,7 +85,7 @@ OPTIONS:
     -q, --exit-no-conn      Exit on all clients disconnection
     -B, --browser           Open terminal with the default system browser
     -I, --index             Custom index.html path
-    -b, --base-path         Expected base path for requests coming from a reverse proxy (eg: /mounted/here, max length: 128)
+    -b, --base-path         Expected base path for requests coming from a reverse proxy (eg: /mounted/here, max length: 128, overridden by `TTYD_BASE_PATH` if set)
     -P, --ping-interval     Websocket ping interval(sec) (default: 5)
     -6, --ipv6              Enable IPv6 support
     -S, --ssl               Enable SSL
