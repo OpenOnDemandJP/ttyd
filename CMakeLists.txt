@@ -50,7 +50,9 @@ if(JSON-C_FOUND)
 endif()
 
 find_package(ZLIB REQUIRED)
-find_package(Libwebsockets 3.2.0 REQUIRED)
+#find_package(Libwebsockets 3.2.0 REQUIRED)
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(LIBWEBSOCKETS REQUIRED libwebsockets)
 
 set(INCLUDE_DIRS ${ZLIB_INCLUDE_DIR} ${LIBWEBSOCKETS_INCLUDE_DIRS} ${JSON-C_INCLUDE_DIRS} ${LIBUV_INCLUDE_DIRS})
 set(LINK_LIBS ${ZLIB_LIBRARIES} ${LIBWEBSOCKETS_LIBRARIES} ${JSON-C_LIBRARIES} ${LIBUV_LIBRARIES})
